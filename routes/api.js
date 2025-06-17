@@ -48,7 +48,7 @@ const Student = require('../models/student'); // Make sure path is correct
 const studentcontroller = require('../controller/studentcontroller')
 
 // GET all students
- routes.get('/getstudent', studentcontroller.getAllStudent 
+ routes.get('/getAllstudent', studentcontroller.getAllStudent 
     // async (req, res) => 
     //     try {
 //         const students = await Student.find();
@@ -57,18 +57,14 @@ const studentcontroller = require('../controller/studentcontroller')
 //         res.status(500).send({ error: error.message });
 //     }
  );
+ routes.get('/getstudent', studentcontroller.getstudent 
+
+ );
+
 
 // POST: Add a new student
  routes.post('/addstudent',studentcontroller.addStudent 
-    //async (req, res) =>// 
-    
-    // try {
-//         const student = new Student(req.body);
-//         const result = await student.save();
-//         res.send(result);
-//     } catch (error) {
-//         res.status(400).send({ error: error.message });
-//     }
+         
  );
 
 // DELETE: Delete a student by ID
@@ -84,19 +80,7 @@ routes.delete('/deletestudent/:id', studentcontroller.DeleteStudent
 
 // PUT: Update a student by ID
 routes.patch('/updatestudent/:id',studentcontroller.updateStudent 
-    // async (req, res, next) => 
-    // {
-//     try {
-//         const result = await Student.findByIdAndUpdate(
-//             req.params.id,
-//             req.body,
-//             { new: true }
-//         );
-//         res.send(result); // will return null if not found
-//     } catch (error) {
-//         res.status(500).send({ error: error.message });
-//     }
-//  }
+   
 );
 
 module.exports = routes;

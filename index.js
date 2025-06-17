@@ -4,6 +4,10 @@ require('./helpers/init_mongodb');
 
 const studentroutes = require('./routes/api');
 const app = express();
+// added suggestion
+app.use(express.json());
+
+//mounting student routs
 app.use(studentroutes);
 
 //handling 404 error
