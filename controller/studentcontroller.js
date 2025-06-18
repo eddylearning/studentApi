@@ -50,25 +50,44 @@ getstudent:async (req, res, next) => {
     }
 },
 DeleteStudent:async (req, res) => {
+    const id =req.params.id
     try {
-        const student = await Student.findByIdAndRemove(req.params.id);
+        const student = await Student.findByIdAndRemove(id);
+        if(!student){
+            throw(createError(404,"student does not exist"));
+            
+        }
         res.send(student); // will return null if not found
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        console.log(error.message)
+        if ( error instanceof mongoose.castError) {
+            next(createError(404,"invalid student id"));
+            return
+            
+        };
+        
     }
 },
 updateStudent:async (req, res, next) => {
     try {
-        const result = await Student.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
+        const id =req.params.id;
+        const update =req.body;
+        const options= {new:true}
+        const result = await Student.findByIdAndUpdate(id, update, options 
         );
+        if(!result){
+            throw(createError(404,"student does not exist"))
+        }
         res.send(result); // will return null if not found
     } catch (error) {
         console.log(error.message);
+
+        if (error instanceof mongoose.castError){
+            return next (createError(400, "invalid student id"));
+        }
+        next(error);
         
     }
-}
+},
 
 }
