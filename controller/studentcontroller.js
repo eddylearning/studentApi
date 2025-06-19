@@ -32,7 +32,7 @@ getAllStudent:async (req, res, next) => {
     }
 },
 
-getstudent:async (req, res, next) => {
+getStudent:async (req, res, next) => {
     const id = req.params.id;
     try {
         const students = await Student.findByid(id)
@@ -68,7 +68,7 @@ DeleteStudent:async (req, res) => {
         
     }
 },
-updateStudent:async (req, res, next) => {
+UpdateStudent:async (req, res, next) => {
     try {
         const id =req.params.id;
         const update =req.body;
