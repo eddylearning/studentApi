@@ -1,6 +1,7 @@
 const User = require("../models/usermodel");
 const createError = require("http-errors");
 const { authSchema } = require("../helpers/validationSchema");
+const { signAccessToken } = require("../helpers/JWThelpers");
 
 module.exports = {
   // REGISTER
@@ -37,12 +38,14 @@ module.exports = {
       }
 
       const isMatch = await user.isValidPassword(result.password); // Assuming isValidPassword is defined in your User model
-
       if (!isMatch) {
         throw createError.Unauthorized("Invalid username or password");
       }
+      // Generate JWT token
+      const accessToken = await signAccessToken(user._id);
+      res.send({ accessToken });
 
-      res.send("Logged in successfully"); // Fixed syntax
+     // res.send("Logged in successfully"); // 
     } catch (error) {
       if (error.isJoi === true) {
         return next(createError.BadRequest("Invalid username/password"));
