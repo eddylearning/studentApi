@@ -13,6 +13,9 @@ module.exports = {
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
+    //shows on the terminal if data is being sent by postman when posting
+    console.log('Received data:', req.body);
+
 },
 getAllStudent:async (req, res, next) => {
     const id = req.params.id;
