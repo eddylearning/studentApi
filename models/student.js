@@ -12,6 +12,8 @@ const studentSchema = new Schema({
     },
     Gender:{
         type:String,
+         // restrict values
+         enum: ['Male', 'Female', 'Other']
     }
 });
 
